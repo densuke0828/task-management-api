@@ -4,14 +4,13 @@ import com.example.task_management_api.dto.TaskRequest;
 import com.example.task_management_api.dto.TaskStatusRequest;
 import com.example.task_management_api.entity.Task;
 import com.example.task_management_api.enums.Status;
+import com.example.task_management_api.exception.TaskNotFoundException;
 import com.example.task_management_api.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +54,7 @@ public class TaskService {
     @Transactional(readOnly = false)
     public Task updateTask(Long id, TaskRequest task) {
         Task foundTask = taskRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("指定したタスクは登録されていません"));
+                .orElseThrow(() -> new TaskNotFoundException(id));
         foundTask.update(
                 task.getTitle(), task.getDescription(), task.getStatus(),
                 task.getDeadline(), task.getPriority()
@@ -69,9 +68,19 @@ public class TaskService {
     @Transactional(readOnly = false)
     public Task updateStatus(Long id, TaskStatusRequest request) {
         Task foundTask = taskRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("指定したタスクは登録されていません"));
+                .orElseThrow(() -> new TaskNotFoundException(id));
         foundTask.updateStatus(request.getStatus());
         return foundTask;
     }
 
+    /**
+     * 登録タスク削除処理
+     */
+    @Transactional(readOnly = false)
+    public void deleteTask(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        taskRepository.delete(task);
+
+    }
 }

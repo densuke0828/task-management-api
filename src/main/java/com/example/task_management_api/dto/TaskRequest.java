@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class TaskRequest {
     @NotBlank(message = "タイトルは必須です")
     private String title;

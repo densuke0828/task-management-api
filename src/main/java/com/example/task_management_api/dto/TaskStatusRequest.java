@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class TaskStatusRequest {
     @NotNull(message = "ステータスは必須です")
     private Status status;

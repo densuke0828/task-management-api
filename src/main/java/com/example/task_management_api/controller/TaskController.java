@@ -50,4 +50,10 @@ public class TaskController {
         Task task =taskService.updateStatus(id, request);
         return ResponseEntity.ok(TaskResponse.from(task));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
+    }
 }
