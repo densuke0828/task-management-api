@@ -3,7 +3,6 @@ package com.example.task_management_api.dto;
 import com.example.task_management_api.enums.Priority;
 import com.example.task_management_api.enums.Status;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
