@@ -141,6 +141,7 @@ public class TaskControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("タイトル"))
                 .andExpect(jsonPath("$.status").value("IN_PROGRESS"));
     }
 
